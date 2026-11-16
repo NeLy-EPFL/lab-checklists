@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NeLy Lab Checklists</title>
+<style>
+  :root { --bg: #ffffff; --fg: #16181b; --muted: #5a6068; --line: #d3d7dc; --accent: #1f5fa8; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #16181b; --fg: #e8eaed; --muted: #9aa0a8; --line: #3a3f46; --accent: #7fb0ec; }
+  }
+  :root[data-theme="dark"] { --bg: #16181b; --fg: #e8eaed; --muted: #9aa0a8; --line: #3a3f46; --accent: #7fb0ec; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.5; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 16px; }
+  h1 { margin: 0 0 4px; font-size: 1.6rem; }
+  p.sub { margin: 0 0 24px; color: var(--muted); }
+  h2 { font-size: 1.05rem; margin: 24px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { margin: 0 0 10px; }
+  a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  li span { display: block; color: var(--muted); font-size: 0.92rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>NeLy lab checklists</h1>
+  <p class="sub">Step-by-step checklists for lab protocols. Tick boxes are saved on your own device for the day.</p>
+
+  <h2>2-photon imaging</h2>
+  <ul>
+    <li><a href="2p.html">2P session checklist</a><span>Every step, cooler to clean-up, with tick boxes. Made for the phone.</span></li>
+    <li><a href="2p-quickstart.html">2P rig quickstart</a><span>One A4 page: rig on → ready → off, usual suspects. The copy taped in the 2P room.</span></li>
+    <li><a href="https://github.com/NeLy-EPFL/knowledge-base/wiki/Technique:-2-Photon-Imaging-with-Octacam">Full protocol (lab wiki)</a><span>Needs a GitHub login with access to the lab wiki.</span></li>
+  </ul>
+</main>
+</body>
+</html>

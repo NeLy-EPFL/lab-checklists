@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2P Full Session Checklist</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #5f6368; --line: #d0d4d9;
+    --accent: #1f5fa8; --step-bg: #eef3fa; --done: #8a9099; --warn: #a3410f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181b; --fg: #e8eaed; --muted: #9aa0a6; --line: #3a3f45;
+      --accent: #8ab4f8; --step-bg: #1f2630; --done: #6b7178; --warn: #f2a37a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181b; --fg: #e8eaed; --muted: #9aa0a6; --line: #3a3f45;
+    --accent: #8ab4f8; --step-bg: #1f2630; --done: #6b7178; --warn: #f2a37a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+           border-bottom: 2px solid var(--fg); padding-bottom: 6px; margin-bottom: 8px; }
+  h1 { font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 0.85rem; }
+  .fields { margin-left: auto; font-size: 0.85rem; color: var(--muted); }
+  .fields span { display: inline-block; min-width: 9em; border-bottom: 1px solid var(--line); margin-left: 4px; }
+  .note { font-size: 0.82rem; color: var(--muted); margin: 0 0 10px; }
+  .note b { color: var(--fg); }
+  .grid { columns: 2; column-gap: 32px; }
+  @media (max-width: 720px) { .grid { columns: 1; } .fields { margin-left: 0; } }
+  section { break-inside: avoid; margin: 0 0 18px; }
+  h2 { display: flex; align-items: baseline; gap: 8px; margin: 0 0 3px;
+       font-size: 1rem; background: var(--step-bg); padding: 6px 10px; border-radius: 6px; }
+  h2 { margin-bottom: 6px; }
+  h2 .n { color: var(--accent); font-variant-numeric: tabular-nums; min-width: 1.4em; }
+  h2 { flex-wrap: wrap; }
+  h2 .where { margin-left: auto; font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+  ul { list-style: none; margin: 0; padding: 0 0 0 4px; }
+  li { margin: 0; }
+  label { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; cursor: pointer; }
+  input[type=checkbox] { flex: none; width: 1.2em; height: 1.2em; margin: 0.15em 0 0;
+                         accent-color: var(--accent); }
+  label > span { min-width: 0; overflow-wrap: anywhere; }
+  input:checked + span { color: var(--done); text-decoration: line-through; }
+  code { font: 0.86em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .repeat { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-left: 4px; }
+  .trouble { break-inside: avoid; border: 1.5px solid var(--warn); border-radius: 5px; padding: 5px 8px; margin-top: 4px; }
+  .trouble h2 { background: none; padding: 0; color: var(--warn); }
+  .trouble ul { padding-left: 0; font-size: 0.84rem; }
+  .trouble li { padding: 1px 0; }
+  footer { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 10px;
+           padding-top: 6px; border-top: 1px solid var(--line); font-size: 0.78rem; color: var(--muted); }
+  footer a, .note a { color: var(--accent); }
+  button { font: inherit; font-size: 0.85rem; padding: 6px 12px; border: 1px solid var(--line);
+           border-radius: 5px; background: var(--step-bg); color: var(--fg); cursor: pointer; }
+  .actions { margin-left: auto; display: flex; gap: 8px; }
+
+  @page { size: A4; margin: 10mm 11mm; }
+  @media print {
+    :root { --bg: #fff; --fg: #000; --muted: #444; --line: #999; --accent: #1f5fa8;
+            --step-bg: #e9eef5; --warn: #a3410f; }
+    body { font-size: 10.4pt; line-height: 1.3; }
+    main { max-width: none; padding: 0; }
+    h1 { font-size: 15.5pt; }
+    .grid { columns: 2; column-gap: 7mm; }
+    section { margin-bottom: 2.2mm; }
+    label { padding: 0.25mm 0; }
+    input[type=checkbox] { appearance: none; -webkit-appearance: none; border: 1.2px solid #000;
+                           border-radius: 2px; width: 3.3mm; height: 3.3mm; margin-top: 0.4mm; }
+    input:checked + span { color: inherit; text-decoration: none; }
+    .actions { display: none; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>2-Photon session: full checklist</h1>
+    <span class="sub">NeLy lab · octacam + airflow control</span>
+  </header>
+  <p class="note">The <b>fly cooler needs ≥ 15 min</b>: switch it on first and set up the rig while it cools.
+    <b>2P_1</b> is still on the legacy SeptaCam / Get red-y workflow for cameras and air (step 4): see the wiki. For the wall: <a href="2p-quickstart.html">2P rig quickstart</a>.</p>
+
+  <div class="grid">
+    <section><h2><span class="n">1</span>Fly cooler<span class="where">Lab bench</span></h2><ul>
+      <li><label><input type="checkbox"><span>Cooler ON (≥ 15 min to reach ~0 °C)</span></label></li>
+      <li><label><input type="checkbox"><span>Kimwipe on the cold plate</span></label></li>
+      <li><label><input type="checkbox"><span>Saline out of the fridge (3rd row)</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">2</span>Laser (MaiTai)<span class="where">2P_1 Windows PC, back</span></h2><ul>
+      <li><label><input type="checkbox"><span>MaiTai open, connected (COM), no warning (humidity &lt; 2 %)</span></label></li>
+      <li><label><input type="checkbox"><span>Hold <b>power</b> 3 s → wait for <b>Pulsing</b></span></label></li>
+      <li><label><input type="checkbox"><span>Wavelength <b>930 nm</b></span></label></li>
+      <li><label><input type="checkbox"><span>Fine motor tuning: <b>66</b> for 2P_2 · <b>82</b> for 2P_1</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">3</span>Rig hardware<span class="where">2P rig</span></h2><ul>
+      <li><label><input type="checkbox"><span>IR ring light ON (2P_2: supply under the table)</span></label></li>
+      <li><label><input type="checkbox"><span>7 behavior cameras plugged (each in its marked USB3 port)</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">4</span>Cameras + air<span class="where">Linux PC</span></h2><ul>
+      <li><label><input type="checkbox"><span><code>cd ~/octacam; uv run octacam gui configs/2p_2</code><br>7 cameras, no terminal warning, Ready? strip clear</span></label></li>
+      <li><label><input type="checkbox"><span><code>cd ~/airflow_control; uv run airflow-control gui</code><br>Air channel found (live flow)</span></label></li>
+      <li><label><input type="checkbox"><span>Styrofoam ball: constant flow <b>0.6–0.8 ln/min</b>, ball floats</span></label></li>
+      <li><label><input type="checkbox"><span>Steel ball (closed loop): Ball delivery shows <i>ball seen / not seen</i> correctly</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">5</span>ThorSync + ThorImage<span class="where">Windows PC</span></h2><ul>
+      <li><label><input type="checkbox"><span>Open ThorSync, then ThorImage</span></label></li>
+      <li><label><input type="checkbox"><span>All hardware <b>green</b> → OK</span></label></li>
+      <li><label><input type="checkbox"><span>2P_2: <b>Camera</b> modality for bright field</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">6</span>Flies<span class="where">25 °C room</span></h2><ul>
+      <li><label><input type="checkbox"><span>Fetch the flies (sorted the day before)</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">7</span>Mount<span class="where">Lab bench</span></h2><ul>
+      <li><label><input type="checkbox"><span>Cold-anesthetize, mount in holder</span></label></li>
+      <li><label><input type="checkbox"><span>Glue: prefix → proboscis → seal → <b>≥ 10 s UV</b></span></label></li>
+      <li><label><input type="checkbox"><span>Other flies back on food</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">8</span>Dissect<span class="where">Dissection scope</span></h2><ul>
+      <li><label><input type="checkbox"><span>Saline on holder, sharp needle, dissect</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">9</span>Find the sample<span class="where">2P rig</span></h2><ul>
+      <li><label><input type="checkbox"><span>Mount holder, objective into saline</span></label></li>
+      <li><label><input type="checkbox"><span>Find head capsule (2P_1: eyepieces · 2P_2: camera + epi)</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">10</span>Switch to multiphoton<span class="where">2P rig</span></h2><ul>
+      <li><label><input type="checkbox"><span>Multiphoton mode, PMT gains <b>10</b></span></label></li>
+      <li><label><input type="checkbox"><span>Lights off except IR, enclosure closed</span></label></li>
+      <li><label><input type="checkbox"><span>3 shutters open: MaiTai (hold 3 s), ThorImage laser, ThorImage PMT</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">11</span>Imaging plane<span class="where">ThorImage</span></h2><ul>
+      <li><label><input type="checkbox"><span>Live → Z-stack at x2 → zoom (e.g. x2.9) → pick plane</span></label></li>
+      <li><label><input type="checkbox"><span>Streaming (2P_2: <b>RAM 12</b>, <b>3000 frames</b>)</span></label></li>
+      <li><label><input type="checkbox"><span><b>Remote connection</b> ticked (else no ThorSync data)</span></label></li>
+    </ul></section>
+
+    <section><h2><span class="n">12</span>Record<span class="where">octacam / airflow</span></h2><ul>
+      <li><label><input type="checkbox"><span>octacam: <b>your user</b>, Experiment / Fly / Take</span></label></li>
+      <li><label><input type="checkbox"><span>octacam <b>Start</b> (it waits)</span></label></li>
+      <li><label><input type="checkbox"><span>Start ThorImage → octacam follows (timer runs)</span></label></li>
+      <li><label><input type="checkbox"><span>Steel ball: <b>Arm</b> ball delivery, check tracking</span></label></li>
+    </ul><p class="repeat">Each take: bump Take, repeat. New fly: back to 7.</p></section>
+
+    <section><h2><span class="n">13</span>End of session<span class="where">All</span></h2><ul>
+      <li><label><input type="checkbox"><span>Objective up, clean; absorb saline; fly off</span></label></li>
+      <li><label><input type="checkbox"><span>ThorImage done saving → close</span></label></li>
+      <li><label><input type="checkbox"><span>Shutters closed, <b>laser OFF</b>, IR OFF, enclosure closed</span></label></li>
+      <li><label><input type="checkbox"><span>octacam <b>Shut down &amp; process</b>; quit airflow control</span></label></li>
+      <li><label><input type="checkbox"><span>Clean tools (mind the shim) and bench</span></label></li>
+    </ul></section>
+
+    <div class="trouble"><h2>If something's off</h2><ul>
+      <li><b>Black image</b>: all 3 shutters open (MaiTai, ThorImage laser, PMT)? PMT gain &gt; 0? A tripped PMT reboots at gain 0.</li>
+      <li><b>Weak / no 2P signal</b>: wavelength 930 nm? fine tuning matches the scope?</li>
+      <li><b>No SyncData</b>: Remote connection ticked? ThorSync running?</li>
+      <li><b>Camera missing in octacam</b>: right USB port? <code>uv run octacam doctor</code></li>
+      <li><b>2P_2 bright-field camera green but won't open</b>: close all software, unplug camera, replug, reopen ThorImage. Still stuck: reboot Windows with the camera unplugged.</li>
+    </ul></div>
+  </div>
+
+  <footer>
+    <span>Full protocol: <a href="https://github.com/NeLy-EPFL/knowledge-base/wiki/Technique:-2-Photon-Imaging-with-Octacam">lab wiki → Technique: 2-Photon Imaging with Octacam</a></span>
+    <span>Version 2026-11-16</span>
+    <div class="actions">
+      <button type="button" id="reset">Clear all</button>
+          </div>
+  </footer>
+</main>
+<script>
+(function () {
+  var KEY = "nely-2p-checklist-v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("input[type=checkbox]"));
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || "{}");
+      // stale after 18 h: a new session starts blank
+      if (s.t && Date.now() - s.t < 18 * 3600 * 1000 && s.v) {
+        boxes.forEach(function (b, i) { b.checked = !!s.v[i]; });
+      }
+    } catch (e) {}
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), v: boxes.map(function (b) { return b.checked ? 1 : 0; }) }));
+    } catch (e) {}
+  }
+  boxes.forEach(function (b) { b.addEventListener("change", save); });
+  document.getElementById("reset").addEventListener("click", function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+  });
+  load();
+})();
+</script>
+</body>
+</html>
